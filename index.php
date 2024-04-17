@@ -5,8 +5,23 @@
         die("COLLECTION_ROUTE_KEY not set in .env file");
     }
 
-    $url = 'https://www.bathnes.gov.uk/webapi/api/BinsAPI/v2/getbartecroute/'.$route_key.'/true';
-    $data = file_get_contents($url);
+    $cacheFile = 'cache.json';
+    $data = '';
+
+    if (file_exists($cacheFile) && (filemtime($cacheFile) > (time() - 60 * 60 * 24 ))) {
+       // Cache file is less than 24 hours old.
+       // Don't bother refreshing, just use the file as-is.
+       $data = file_get_contents($cacheFile);
+    } else {
+       // Our cache is out-of-date, so load the data from our remote server,
+       // and also save it over our cache for next time.
+       $url = 'https://www.bathnes.gov.uk/webapi/api/BinsAPI/v2/getbartecroute/'.$route_key.'/true';
+       $data = file_get_contents($url);
+       file_put_contents($cacheFile, $data);
+    }
+
+    // $url = 'https://www.bathnes.gov.uk/webapi/api/BinsAPI/v2/getbartecroute/'.$route_key.'/true';
+    // $data = file_get_contents($url);
     $json = json_decode($data, true);
 
     $blackBinNextDate = new DateTime($json['residualNextDate']);
