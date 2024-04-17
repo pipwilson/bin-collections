@@ -13,8 +13,8 @@
        // Don't bother refreshing, just use the file as-is.
        $data = file_get_contents($cacheFile);
     } else {
-       // Our cache is out-of-date, so load the data from our remote server,
-       // and also save it over our cache for next time.
+       // Our cache is out-of-date, so load the data from the remote server,
+       // and also save it over the cache for next time.
        $url = 'https://www.bathnes.gov.uk/webapi/api/BinsAPI/v2/getbartecroute/'.$route_key.'/true';
        $data = file_get_contents($url);
        file_put_contents($cacheFile, $data);
