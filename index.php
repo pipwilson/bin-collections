@@ -40,6 +40,8 @@
     <head>
         <title>Next bin day collection dates</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="webmention" href="https://webmention.io/philwilson.org/webmention" />
+        <link rel="pingback" href="https://webmention.io/philwilson.org/xmlrpc" />
         <style type="text/css">
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
